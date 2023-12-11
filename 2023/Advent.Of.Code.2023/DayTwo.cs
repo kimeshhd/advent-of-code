@@ -11,6 +11,7 @@
             var totalBlueCubes = 14;
 
             var validGames = new List<int>();
+            var powerOfFewest = new List<int>();
 
             for (int i = 0; i < lines.Length; i++)
             {
@@ -24,15 +25,15 @@
 
                 var rounds = line.Split(";");
 
+                var highestRed = 0;
+                var highestGreen = 0;
+                var highestBlue = 0;
+
                 for (int r = 0; r < rounds.Length; r++)
                 {
                     var redTakenOut = 0;
                     var greenTakenOut = 0;
                     var blueTakenOut = 0;
-
-                    var lowestRed = 100;
-                    var lowestGreen = 100;
-                    var lowestBlue = 100;
 
                     var cubes = rounds[r].Split(",");
 
@@ -66,24 +67,46 @@
                         }
                     }
 
-                    if (totalRedCubes >= redTakenOut && totalGreenCubes >= greenTakenOut && totalBlueCubes >= blueTakenOut)
+                    if (redTakenOut > highestRed)
                     {
-                        validRound = true;
+                        highestRed = redTakenOut;
                     }
-                    else
+
+                    if (greenTakenOut > highestGreen)
                     {
-                        validRound = false;
-                        break;
+                        highestGreen = greenTakenOut;
                     }
+
+                    if (blueTakenOut > highestBlue)
+                    {
+                        highestBlue = blueTakenOut;
+                    }
+
+                    //part 1
+                    //if (totalRedCubes >= redTakenOut && totalGreenCubes >= greenTakenOut && totalBlueCubes >= blueTakenOut)
+                    //{
+                    //    validRound = true;
+                    //}
+                    //else
+                    //{
+                    //    validRound = false;
+                    //    break;
+                    //}
                 }
 
-                if (validRound)
-                {
-                    validGames.Add(gameId);
-                }
+                //part 1
+                //if (validRound)
+                //{
+                //    validGames.Add(gameId);
+                //}
+
+                powerOfFewest.Add(highestRed * highestGreen * highestBlue);
             }
 
-            Console.WriteLine(validGames.Sum(gameId => gameId));
+            //part 1
+            //Console.WriteLine(validGames.Sum(gameId => gameId));
+
+            Console.WriteLine(powerOfFewest.Sum(x => x));
 
             Console.Read();
         }
